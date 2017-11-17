@@ -50,6 +50,44 @@ templates:
       Pipeline:
         Properties:
           Stages:
+            - Name: Build
+              Actions:
+              - Name: BuildArtifact
+                ActionTypeId:
+                  Category: Invoke
+                  Owner: AWS
+                  Version: '1'
+                  Provider: Lambda
+                Configuration:
+                  FunctionName:
+                    Ref: CodePipelineLambdaDummy
+                  UserParameters:
+                    Ref: AWS::StackName
+                RunOrder: 1
+              - Name: RunStaticAnalysis
+                ActionTypeId:
+                  Category: Invoke
+                  Owner: AWS
+                  Version: '1'
+                  Provider: Lambda
+                Configuration:
+                  FunctionName:
+                    Ref: CodePipelineLambdaDummy
+                  UserParameters:
+                    Ref: AWS::StackName
+                RunOrder: 1
+              - Name: StoreDistro
+                ActionTypeId:
+                  Category: Invoke
+                  Owner: AWS
+                  Version: '1'
+                  Provider: Lambda
+                Configuration:
+                  FunctionName:
+                    Ref: CodePipelineLambdaDummy
+                  UserParameters:
+                    Ref: AWS::StackName
+                RunOrder: 1
             - Name: AcceptanceTesting
               Actions:
               - Name: ProvisionEnvironment
