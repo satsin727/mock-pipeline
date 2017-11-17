@@ -126,41 +126,32 @@ templates:
                 RunOrder: 4
               - Name: DeploymentTest
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running DeploymentTest
                 RunOrder: 5
             - Name: Capacity
               Actions:
               - Name: PenTest
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running PenTest
                 RunOrder: 1
               - Name: PerformanceTest
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running PerformanceTest
                 RunOrder: 1
               - Name: ImageTests
                 ActionTypeId:
@@ -176,15 +167,21 @@ templates:
                 RunOrder: 1
               - Name: ResiliencyTests
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running ResiliencyTests
+                RunOrder: 1
+              - Name: SecurityApproval
+                ActionTypeId:
+                  Category: Approval
+                  Owner: AWS
+                  Version: '1'
+                  Provider: Manual
+                Configuration:
+                  CustomData: Approval or Reject this change after running SecurityApproval
                 RunOrder: 1
             - Name: ExploratoryTesting
               Actions:
@@ -199,53 +196,41 @@ templates:
                 RunOrder: 1
             - Name: Production
               Actions:
-              - Name: BlueGreenDeployment
+              - Name: ProdDeployment
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running ProdDeployment
                 RunOrder: 1
               - Name: OutofBandTests
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running OutofBandTests
                 RunOrder: 1
-              - Name: SecurityMetrics
+              - Name: SecurityTests
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running SwitchEndPoints
                 RunOrder: 1
               - Name: SwitchEndPoints
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running SwitchEndPoints
                 RunOrder: 2
 
   mu-iam-pipeline-mock-pipeline:
