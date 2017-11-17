@@ -1,12 +1,12 @@
 
 service:
   pipeline:
+    build:
+      disabled: true
     acceptance:
       disabled: true
     production:
       disabled: true
-
-
 
 
 
@@ -50,7 +50,7 @@ templates:
       Pipeline:
         Properties:
           Stages:
-            - Name: Build
+            - Name: MyBuild
               Actions:
               - Name: BuildArtifact
                 ActionTypeId:
