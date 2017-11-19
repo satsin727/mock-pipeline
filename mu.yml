@@ -78,41 +78,23 @@ templates:
                 RunOrder: 1
               - Name: StoreDistro
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
-                RunOrder: 1
+                  CustomData: Approval or Reject this change after running DeploymentTest
+                RunOrder: 2
             - Name: AcceptanceTesting
               Actions:
               - Name: ProvisionEnvironment
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
-                RunOrder: 1
-              - Name: InfrastructureAnalysis
-                ActionTypeId:
-                  Category: Invoke
-                  Owner: AWS
-                  Version: '1'
-                  Provider: Lambda
-                Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
+                  CustomData: Approval or Reject this change after running ProvisionEnvironment
                 RunOrder: 1
               - Name: ConfigureEnvironment
                 ActionTypeId:
@@ -128,28 +110,22 @@ templates:
                 RunOrder: 2
               - Name: AcceptanceTests
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
-                RunOrder: 3
+                  CustomData: Approval or Reject this change after running DeploymentTest
+                RunOrder: 5
               - Name: IntegrationTests
                 ActionTypeId:
-                  Category: Invoke
+                  Category: Approval
                   Owner: AWS
                   Version: '1'
-                  Provider: Lambda
+                  Provider: Manual
                 Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
-                RunOrder: 3
+                  CustomData: Approval or Reject this change after running DeploymentTest
+                RunOrder: 5
               - Name: DeployApp
                 ActionTypeId:
                   Category: Invoke
