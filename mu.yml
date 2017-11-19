@@ -50,7 +50,7 @@ templates:
       Pipeline:
         Properties:
           Stages:
-            - Name: MyBuild
+            - Name: Commit
               Actions:
               - Name: BuildArtifact
                 ActionTypeId:
